@@ -1,5 +1,6 @@
 package com.example.zh_eastsun.xiyouthought.activity;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
@@ -23,11 +24,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText inputStuNum;
     private EditText inputPassword;
-//    private EditText inputCheckCode;
+    //    private EditText inputCheckCode;
     private Button login;
 //    private ImageView checkCodeImage;
 
-    private ExecutorService executorService = Executors.newFixedThreadPool(5);       //执行耗时任务的线程池，最大工作线程数为5
+    //执行耗时任务的线程池，最大工作线程数为5
+    private ExecutorService executorService = Executors.newFixedThreadPool(5);
     private Handler handler = new Handler(Looper.getMainLooper());
     private String cookie;
 
@@ -76,19 +78,22 @@ public class LoginActivity extends AppCompatActivity {
                                 //判断登录状态是否成功
                                 //成功时携带学生的基本信息跳转活动
                                 //失败时清空输入栏
-                                if(verify.verify(stuNum,password)){
+                                if (verify.verify(stuNum, password)) {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT)
+                                            Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT)
                                                     .show();
+                                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                                            startActivity(intent);
+                                            finish();
                                         }
                                     });
-                                }else{
+                                } else {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Toast.makeText(LoginActivity.this,"账号密码错误，请重新登录",Toast.LENGTH_SHORT)
+                                            Toast.makeText(LoginActivity.this, "账号密码错误，请重新登录", Toast.LENGTH_SHORT)
                                                     .show();
                                             inputStuNum.setText("");
                                             inputPassword.setText("");
@@ -101,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    Toast.makeText(LoginActivity.this,R.string.internet_unavailable_hint,Toast.LENGTH_SHORT)
+                    Toast.makeText(LoginActivity.this, R.string.internet_unavailable_hint, Toast.LENGTH_SHORT)
                             .show();
                 }
             }

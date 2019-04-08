@@ -28,7 +28,7 @@ public class XUPTVerify {
     private static final String PUBLIC_KEY_URL = "http://www.zfjw.xupt.edu.cn/jwglxt/xtgl/login_getPublicKey.html?time=";
     private static final String POST_URL = "http://www.zfjw.xupt.edu.cn/jwglxt/xtgl/login_slogin.html";
 
-    private Map<String,Object> tokenAndCookie;
+    private static Map<String,Object> tokenAndCookie;
 
     private Base64 base64 = new Base64();
     private RSA rsa = new RSA();
@@ -36,7 +36,7 @@ public class XUPTVerify {
     public static void main(String[] args) throws Exception {
 		XUPTVerify verify = new XUPTVerify();
 		verify.verify("04152017","helloworld1997");
-		System.out.println(verify.getStudentInfo(verify.tokenAndCookie,"04152017"));
+		System.out.println(verify.getStudentInfo(XUPTVerify.tokenAndCookie,"04152017"));
 	}
 
 	/**
