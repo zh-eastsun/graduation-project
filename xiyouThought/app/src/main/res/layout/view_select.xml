@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <Spinner
+        android:id="@+id/choose_school_year"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"/>
+
+    <Spinner
+        android:id="@+id/choose_school_term"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"/>
+    <Button
+        android:id="@+id/query_school_timetable"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:background="@drawable/round_corner_button"
+        android:elevation="10dp"
+        android:text="@string/query_school_timetable_button"
+        android:textColor="@color/unselected"/>
+
+</LinearLayout>

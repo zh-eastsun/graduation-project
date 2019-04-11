@@ -8,6 +8,7 @@
     <string name="course_text">课程表</string>
     <string name="grade_text">成绩</string>
     <string name="user_text">用户</string>
+    <string name="query_school_timetable_button">查询</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
