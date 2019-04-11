@@ -42,8 +42,8 @@ public class ChooseTermView extends LinearLayout {
         ArrayAdapter<String> schoolYearArrayAdapter = new ArrayAdapter<>(context,R.layout.spinner_item,schoolYearArray);
         ArrayAdapter<String> schoolTermArrayAdapter = new ArrayAdapter<>(context,R.layout.spinner_item,schoolTermArray);
         //为适配器设置样式
-        schoolYearArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        schoolTermArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        schoolYearArrayAdapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        schoolTermArrayAdapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         //为spinner设置适配器
         chooseSchoolYear.setAdapter(schoolYearArrayAdapter);
         chooseSchoolTerm.setAdapter(schoolTermArrayAdapter);

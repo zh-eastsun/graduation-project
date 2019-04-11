@@ -151,9 +151,6 @@ public class XUPTVerify {
         Response response = connection.cookies(cookies).ignoreContentType(true).execute();
         Gson gson = new Gson();
         PublicKey publicKey = gson.fromJson(response.body(), PublicKey.class);
-//		JSONObject jsonObject = JSONObject.fromObject(response.body());
-//		String modulus = jsonObject.getString(MODULUS);
-//		String exponent = jsonObject.getString(EXPONENT);
         Map<String, String> result = new HashMap<>();
         result.put(MODULUS, publicKey.getModulus());
         result.put(EXPONENT, publicKey.getExponent());
