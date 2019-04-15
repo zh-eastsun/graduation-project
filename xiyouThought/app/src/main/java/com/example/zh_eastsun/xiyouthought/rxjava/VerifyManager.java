@@ -46,6 +46,10 @@ public class VerifyManager {
 
     }
 
+    public Boolean getNetRequestResult() {
+        return netRequestResult;
+    }
+
     public void loginVerify() {
         //提示框对用户进行网络请求提示
         final AlertDialog dialog = new AlertDialog.Builder(context)

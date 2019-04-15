@@ -33,7 +33,9 @@ public class LoginActivity extends AppCompatActivity {
         verifyManager.setNetRequestCallback(new VerifyManager.NetRequestCallback() {
             @Override
             public void success() {
-                finish();
+                if(verifyManager.getNetRequestResult()){
+                    finish();
+                }
             }
         });
         login.setOnClickListener(new View.OnClickListener() {
