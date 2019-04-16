@@ -28,15 +28,19 @@ public class VerifyManager {
     private NetRequestCallback netRequestCallback;
     private Boolean netRequestResult;
 
-    public interface NetRequestCallback{
+    public interface NetRequestCallback {
         void success();
     }
 
-    public void setNetRequestCallback(NetRequestCallback netRequestCallback){
+    /**
+     * 完成网络请求后的回掉
+     * @param netRequestCallback
+     */
+    public void setNetRequestCallback(NetRequestCallback netRequestCallback) {
         this.netRequestCallback = netRequestCallback;
     }
 
-    public VerifyManager(Context context, EditText inputStuNum,EditText inputPassword) {
+    public VerifyManager(Context context, EditText inputStuNum, EditText inputPassword) {
         this.context = context;
         this.inputStuNum = inputStuNum;
         this.inputPassword = inputPassword;
@@ -50,6 +54,9 @@ public class VerifyManager {
         return netRequestResult;
     }
 
+    /**
+     * 登录验证
+     */
     public void loginVerify() {
         //提示框对用户进行网络请求提示
         final AlertDialog dialog = new AlertDialog.Builder(context)
@@ -59,8 +66,8 @@ public class VerifyManager {
                 .setCancelable(false)
                 .show();
         //获取用户输入的信息
-        loginInformation.put("stuNum",inputStuNum.getText().toString());
-        loginInformation.put("password",inputPassword.getText().toString());
+        loginInformation.put("stuNum", inputStuNum.getText().toString());
+        loginInformation.put("password", inputPassword.getText().toString());
         //rxjava进行数据请求及UI更新
         Observable.just(loginInformation)
                 .map(new Function<HashMap<String, String>, Boolean>() {
@@ -86,7 +93,7 @@ public class VerifyManager {
                             netRequestResult = true;
                             netRequestCallback.success();
                             context.startActivity(intent);
-                        }else{
+                        } else {
                             //失败时取消提示框并清空用户输入的数据
                             dialog.dismiss();
                             Toast.makeText(context, "账号密码错误，请重新登录", Toast.LENGTH_SHORT)

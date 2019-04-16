@@ -1,40 +1,13 @@
 package com.example.zh_eastsun.xiyouthought.javabean;
 
 public class Account {
-    private String stuNum;
-    private String password;
-    private String checkCode;
-    private String cookie;
+    private static String stuNum;
 
-    public String getStuNum() {
+    public static String getStuNum() {
         return stuNum;
     }
 
-    public void setStuNum(String stuNum) {
-        this.stuNum = stuNum;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getCheckCode() {
-        return checkCode;
-    }
-
-    public void setCheckCode(String checkCode) {
-        this.checkCode = checkCode;
-    }
-
-    public String getCookie() {
-        return cookie;
-    }
-
-    public void setCookie(String cookie) {
-        this.cookie = cookie;
+    public static void setStuNum(String stuNum) {
+        Account.stuNum = stuNum;
     }
 }

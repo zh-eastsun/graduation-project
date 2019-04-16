@@ -58,6 +58,5 @@ public class ChooseTermView extends LinearLayout {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.view_select,this);
         init(context);
-
     }
 }

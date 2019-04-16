@@ -97,6 +97,10 @@ public class XUPTVerify {
         Element lessonElement = element.getElementById("col_bh_id");
         String major = lessonElement.text();
         map.put("major", major);
+        //学院
+        Element academyElement = element.getElementById("col_jg_id");
+        String academy = academyElement.text();
+        map.put("academy",academy);
         return map;
     }
 
@@ -155,6 +159,10 @@ public class XUPTVerify {
         result.put(MODULUS, publicKey.getModulus());
         result.put(EXPONENT, publicKey.getExponent());
         return result;
+    }
+
+    public static Map<String,String> getJsessionid(){
+        return (Map<String, String>) tokenAndCookie.get("JSESSIONID");
     }
 
 }

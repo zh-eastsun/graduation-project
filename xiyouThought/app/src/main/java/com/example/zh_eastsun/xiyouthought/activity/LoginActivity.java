@@ -21,7 +21,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText inputPassword;
     private Button login;
     private VerifyManager verifyManager;
-    private Handler handler = new Handler(Looper.getMainLooper());
 
 
     //完成控件的初始化
