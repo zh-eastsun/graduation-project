@@ -1,104 +1,118 @@
 package com.example.zh_eastsun.xiyouthought.javabean;
 
+import java.util.List;
+
 public class CourseGrade {
-    //课程成绩
-    private String cj;
-    //班级
-    private String bj;
-    //绩点
-    private String jd;
-    //开课部门名称
-    private String kkbmmc;
-    //教师姓名
-    private String jsxm;
-    //课程名称
-    private String kcmc;
-    //课程号
-    private String kch;
-    //课程性质名称
-    private String kcxzmc;
-    //年级名称
-    private String njmc;
-    //考试性质
-    private String ksxz;
+    private List<Grade> items;
 
-    public String getKsxz() {
-        return ksxz;
+    public List<Grade> getItems() {
+        return items;
     }
 
-    public void setKsxz(String ksxz) {
-        this.ksxz = ksxz;
+    public void setItems(List<Grade> items) {
+        this.items = items;
     }
 
-    public String getCj() {
-        return cj;
-    }
+    public class Grade{
+        //课程成绩
+        private String cj;
+        //班级
+        private String bj;
+        //绩点
+        private String jd;
+        //开课部门名称
+        private String kkbmmc;
+        //教师姓名
+        private String jsxm;
+        //课程名称
+        private String kcmc;
+        //课程号
+        private String kch;
+        //课程性质名称
+        private String kcxzmc;
+        //年级名称
+        private String njmc;
+        //考试性质
+        private String ksxz;
 
-    public void setCj(String cj) {
-        this.cj = cj;
-    }
+        public String getKsxz() {
+            return ksxz;
+        }
 
-    public String getBj() {
-        return bj;
-    }
+        public void setKsxz(String ksxz) {
+            this.ksxz = ksxz;
+        }
 
-    public void setBj(String bj) {
-        this.bj = bj;
-    }
+        public String getCj() {
+            return cj;
+        }
 
-    public String getJd() {
-        return jd;
-    }
+        public void setCj(String cj) {
+            this.cj = cj;
+        }
 
-    public void setJd(String jd) {
-        this.jd = jd;
-    }
+        public String getBj() {
+            return bj;
+        }
 
-    public String getKkbmmc() {
-        return kkbmmc;
-    }
+        public void setBj(String bj) {
+            this.bj = bj;
+        }
 
-    public void setKkbmmc(String kkbmmc) {
-        this.kkbmmc = kkbmmc;
-    }
+        public String getJd() {
+            return jd;
+        }
 
-    public String getJsxm() {
-        return jsxm;
-    }
+        public void setJd(String jd) {
+            this.jd = jd;
+        }
 
-    public void setJsxm(String jsxm) {
-        this.jsxm = jsxm;
-    }
+        public String getKkbmmc() {
+            return kkbmmc;
+        }
 
-    public String getKcmc() {
-        return kcmc;
-    }
+        public void setKkbmmc(String kkbmmc) {
+            this.kkbmmc = kkbmmc;
+        }
 
-    public void setKcmc(String kcmc) {
-        this.kcmc = kcmc;
-    }
+        public String getJsxm() {
+            return jsxm;
+        }
 
-    public String getKch() {
-        return kch;
-    }
+        public void setJsxm(String jsxm) {
+            this.jsxm = jsxm;
+        }
 
-    public void setKch(String kch) {
-        this.kch = kch;
-    }
+        public String getKcmc() {
+            return kcmc;
+        }
 
-    public String getKcxzmc() {
-        return kcxzmc;
-    }
+        public void setKcmc(String kcmc) {
+            this.kcmc = kcmc;
+        }
 
-    public void setKcxzmc(String kcxzmc) {
-        this.kcxzmc = kcxzmc;
-    }
+        public String getKch() {
+            return kch;
+        }
 
-    public String getNjmc() {
-        return njmc;
-    }
+        public void setKch(String kch) {
+            this.kch = kch;
+        }
 
-    public void setNjmc(String njmc) {
-        this.njmc = njmc;
+        public String getKcxzmc() {
+            return kcxzmc;
+        }
+
+        public void setKcxzmc(String kcxzmc) {
+            this.kcxzmc = kcxzmc;
+        }
+
+        public String getNjmc() {
+            return njmc;
+        }
+
+        public void setNjmc(String njmc) {
+            this.njmc = njmc;
+        }
     }
 }

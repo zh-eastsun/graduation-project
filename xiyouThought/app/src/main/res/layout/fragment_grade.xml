@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".fragment.GradeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.example.zh_eastsun.xiyouthought.view.ChooseTermView
+        android:id="@+id/choose_and_query"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="成绩查询界面" />
+        android:layout_height="50dp">
+    </com.example.zh_eastsun.xiyouthought.view.ChooseTermView>
 
 </FrameLayout>

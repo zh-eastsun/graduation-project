@@ -3,11 +3,11 @@ package com.example.zh_eastsun.xiyouthought.rxjava;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.zh_eastsun.xiyouthought.R;
 import com.example.zh_eastsun.xiyouthought.activity.MainActivity;
+import com.example.zh_eastsun.xiyouthought.net.NetUtil;
 import com.example.zh_eastsun.xiyouthought.net.XUPTVerify;
 
 import java.util.HashMap;
@@ -23,13 +23,18 @@ public class VerifyManager {
     private HashMap<String, String> loginInformation;
     private Context context;
     private static XUPTVerify xuptVerify;
-    private EditText inputStuNum;
-    private EditText inputPassword;
     private NetRequestCallback netRequestCallback;
+    private EditTextCallback editTextCallback;
     private Boolean netRequestResult;
 
     public interface NetRequestCallback {
         void success();
+        void failed();
+    }
+
+    public interface EditTextCallback{
+        void clearText();
+        HashMap<String,String> getUserInput();
     }
 
     /**
@@ -40,10 +45,12 @@ public class VerifyManager {
         this.netRequestCallback = netRequestCallback;
     }
 
-    public VerifyManager(Context context, EditText inputStuNum, EditText inputPassword) {
+    public void setEditTextCallback(EditTextCallback editTextCallback){
+        this.editTextCallback = editTextCallback;
+    }
+
+    public VerifyManager(Context context) {
         this.context = context;
-        this.inputStuNum = inputStuNum;
-        this.inputPassword = inputPassword;
         xuptVerify = new XUPTVerify();
         loginInformation = new HashMap<>();
         netRequestResult = new Boolean(false);
@@ -65,9 +72,13 @@ public class VerifyManager {
                 .setView(R.layout.wait_progress_bar)
                 .setCancelable(false)
                 .show();
+        if(!NetUtil.isNetPingUsable()){
+            dialog.dismiss();
+            netRequestCallback.failed();
+            return ;
+        }
         //获取用户输入的信息
-        loginInformation.put("stuNum", inputStuNum.getText().toString());
-        loginInformation.put("password", inputPassword.getText().toString());
+        loginInformation = editTextCallback.getUserInput();
         //rxjava进行数据请求及UI更新
         Observable.just(loginInformation)
                 .map(new Function<HashMap<String, String>, Boolean>() {
@@ -98,8 +109,7 @@ public class VerifyManager {
                             dialog.dismiss();
                             Toast.makeText(context, "账号密码错误，请重新登录", Toast.LENGTH_SHORT)
                                     .show();
-                            inputStuNum.setText("");
-                            inputPassword.setText("");
+                            editTextCallback.clearText();
                         }
                     }
                 });

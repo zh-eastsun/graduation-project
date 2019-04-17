@@ -1,7 +1,5 @@
 package com.example.zh_eastsun.xiyouthought.activity;
 
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +12,8 @@ import com.example.zh_eastsun.xiyouthought.R;
 import com.example.zh_eastsun.xiyouthought.net.NetUtil;
 import com.example.zh_eastsun.xiyouthought.rxjava.VerifyManager;
 
+import java.util.HashMap;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,13 +22,15 @@ public class LoginActivity extends AppCompatActivity {
     private Button login;
     private VerifyManager verifyManager;
 
+    private HashMap<String,String> userInput;
+
 
     //完成控件的初始化
     private void initView() {
         inputStuNum = findViewById(R.id.input_stuNum);
         inputPassword = findViewById(R.id.input_password);
         login = findViewById(R.id.login);
-        verifyManager = new VerifyManager(LoginActivity.this, inputStuNum, inputPassword);
+        verifyManager = new VerifyManager(LoginActivity.this);
         verifyManager.setNetRequestCallback(new VerifyManager.NetRequestCallback() {
             @Override
             public void success() {
@@ -36,16 +38,34 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                 }
             }
+
+            @Override
+            public void failed() {
+                Toast.makeText(LoginActivity.this,"网络不可用...请检查网络...",Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+        verifyManager.setEditTextCallback(new VerifyManager.EditTextCallback() {
+            @Override
+            public void clearText() {
+                inputStuNum.setText("");
+                inputPassword.setText("");
+            }
+
+            @Override
+            public HashMap<String, String> getUserInput() {
+                if(userInput == null){
+                    userInput = new HashMap<>();
+                }
+                userInput.put("stuNum",inputStuNum.getText().toString());
+                userInput.put("password",inputPassword.getText().toString());
+                return userInput;
+            }
         });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (NetUtil.isNetPingUsable()) {
-                    verifyManager.loginVerify();
-                } else {
-                    Toast.makeText(LoginActivity.this, R.string.internet_unavailable_hint, Toast.LENGTH_SHORT)
-                            .show();
-                }
+                verifyManager.loginVerify();
             }
         });
     }

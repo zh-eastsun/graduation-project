@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -20,11 +22,29 @@ public class ChooseTermView extends LinearLayout {
     private Spinner chooseSchoolTerm;
     private Button query;
 
+    private String schoolYear;
+    private String schoolTerm;
+
+    private static String termOne = "3";
+    private static String termTwo = "12";
+
+    private QueryCourseGradeCallback queryCourseGradeCallback;
+
+    public interface QueryCourseGradeCallback{
+        public void query();
+    }
+
+    public void setQueryCourseGradeCallback(QueryCourseGradeCallback queryCourseGradeCallback){
+        this.queryCourseGradeCallback = queryCourseGradeCallback;
+    }
+
     private void init(Context context) {
         //获取当前系统时间
         String sysYear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+        //默认学年为当前系统时间学年
+        schoolYear = sysYear;
         //将当前时间之前4年加入学年数组
-        ArrayList<String> schoolYearArray = new ArrayList<>();
+        final ArrayList<String> schoolYearArray = new ArrayList<>();
         for (int index = 0; index < 5; index++){
             schoolYearArray.add(String.valueOf(Integer.valueOf(sysYear)-index));
         }
@@ -32,6 +52,8 @@ public class ChooseTermView extends LinearLayout {
         ArrayList<String> schoolTermArray = new ArrayList<>();
         schoolTermArray.add("第一学期");
         schoolTermArray.add("第二学期");
+        //默认学期为第一学期
+        schoolTerm = termOne;
 
         //初始化控件
         chooseSchoolYear = findViewById(R.id.choose_school_year);
@@ -48,6 +70,48 @@ public class ChooseTermView extends LinearLayout {
         chooseSchoolYear.setAdapter(schoolYearArrayAdapter);
         chooseSchoolTerm.setAdapter(schoolTermArrayAdapter);
 
+        chooseSchoolYear.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                schoolYear = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                schoolYear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+            }
+        });
+        chooseSchoolTerm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0){
+                    schoolTerm = termOne;
+                }else{
+                    schoolTerm = termTwo;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                schoolTerm = termOne;
+            }
+        });
+
+        query.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                queryCourseGradeCallback.query();
+            }
+        });
+
+
+    }
+
+    public String getSchoolYear(){
+        return this.schoolYear;
+    }
+
+    public String getSchoolTerm(){
+        return this.schoolTerm;
     }
 
     public ChooseTermView(Context context) {
