@@ -24,7 +24,7 @@ public class VerifyManager {
     private Context context;
     private static XUPTVerify xuptVerify;
     private NetRequestCallback netRequestCallback;
-    private EditTextCallback editTextCallback;
+    private EditTextInputCallback editTextInputCallback;
     private Boolean netRequestResult;
 
     public interface NetRequestCallback {
@@ -32,7 +32,7 @@ public class VerifyManager {
         void failed();
     }
 
-    public interface EditTextCallback{
+    public interface EditTextInputCallback{
         void clearText();
         HashMap<String,String> getUserInput();
     }
@@ -45,8 +45,8 @@ public class VerifyManager {
         this.netRequestCallback = netRequestCallback;
     }
 
-    public void setEditTextCallback(EditTextCallback editTextCallback){
-        this.editTextCallback = editTextCallback;
+    public void setEditTextCallback(EditTextInputCallback editTextInputCallback){
+        this.editTextInputCallback = editTextInputCallback;
     }
 
     public VerifyManager(Context context) {
@@ -78,7 +78,7 @@ public class VerifyManager {
             return ;
         }
         //获取用户输入的信息
-        loginInformation = editTextCallback.getUserInput();
+        loginInformation = editTextInputCallback.getUserInput();
         //rxjava进行数据请求及UI更新
         Observable.just(loginInformation)
                 .map(new Function<HashMap<String, String>, Boolean>() {
@@ -109,7 +109,7 @@ public class VerifyManager {
                             dialog.dismiss();
                             Toast.makeText(context, "账号密码错误，请重新登录", Toast.LENGTH_SHORT)
                                     .show();
-                            editTextCallback.clearText();
+                            editTextInputCallback.clearText();
                         }
                     }
                 });
