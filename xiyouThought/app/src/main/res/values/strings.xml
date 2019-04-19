@@ -9,6 +9,10 @@
     <string name="grade_text">成绩</string>
     <string name="user_text">用户</string>
     <string name="query_school_timetable_button">查询</string>
+    <string name="grade">成绩:</string>
+    <string name="subject">科目:</string>
+    <string name="achievement_point">绩点:</string>
+    <string name="subject_type">类型:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -10,6 +10,7 @@ import org.jsoup.Jsoup;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class GradeRequest {
@@ -40,14 +41,14 @@ public class GradeRequest {
      * @param schoolYear 用户选择的学年
      * @param schoolTerm 用户选择的学期
      * @return  课程成绩Bean类的集合
-     * @throws IOException
      */
-    public ArrayList<CourseGrade> getCourseGrade(String schoolYear, String schoolTerm) {
+    public ArrayList<CourseGrade.Grade> getCourseGrade(String schoolYear, String schoolTerm) {
 
         try{
             //此处需要判断页面大小，数据并不一定存储在一页表格中
             int pageSize = getPageSize(schoolYear, schoolTerm);
             ArrayList<CourseGrade> courseGradeArrayList = new ArrayList<>();
+            ArrayList<CourseGrade.Grade> gradeArrayList = new ArrayList<>();
             //循环查询每个页面
             for (int index = 0; index < pageSize; index++) {
                 Connection connection = Jsoup.connect(HttpURL.COURSE_GRADE_URL);
@@ -61,7 +62,17 @@ public class GradeRequest {
                 CourseGrade courseGrade = gson.fromJson(jsonData,CourseGrade.class);
                 courseGradeArrayList.add(courseGrade);
             }
-            return courseGradeArrayList;
+            Iterator outIterator = courseGradeArrayList.iterator();
+            while(outIterator.hasNext()){
+                CourseGrade courseGrade = (CourseGrade) outIterator.next();
+                ArrayList<CourseGrade.Grade> grades = (ArrayList<CourseGrade.Grade>) courseGrade.getItems();
+                Iterator innerIterator = grades.iterator();
+                while(innerIterator.hasNext()){
+                    CourseGrade.Grade grade = (CourseGrade.Grade) innerIterator.next();
+                    gradeArrayList.add(grade);
+                }
+            }
+            return gradeArrayList;
         }catch(IOException e){
             return null;
         }
