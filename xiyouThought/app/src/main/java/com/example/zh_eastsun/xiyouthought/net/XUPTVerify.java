@@ -29,12 +29,6 @@ public class XUPTVerify {
     private Base64 base64 = new Base64();
     private RSA rsa = new RSA();
 
-    public static void main(String[] args) throws Exception {
-        XUPTVerify verify = new XUPTVerify();
-        verify.verify("04152017", "helloworld1997");
-        System.out.println(verify.getStudentInfo(XUPTVerify.tokenAndCookie, "04152017"));
-    }
-
     /**
      * 经过系统服务器的验证
      *
