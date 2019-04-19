@@ -15,6 +15,11 @@ import com.example.zh_eastsun.xiyouthought.rxjava.VerifyManager;
 import java.util.HashMap;
 
 
+/**
+ * 用户登录的活动
+ * @author zh_eastsun
+ * @version 1.0.0
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private EditText inputStuNum;
@@ -25,12 +30,15 @@ public class LoginActivity extends AppCompatActivity {
     private HashMap<String,String> userInput;
 
 
-    //完成控件的初始化
+    /**
+     * 完成控件的初始化
+     */
     private void initView() {
         inputStuNum = findViewById(R.id.input_stuNum);
         inputPassword = findViewById(R.id.input_password);
         login = findViewById(R.id.login);
         verifyManager = new VerifyManager(LoginActivity.this);
+        //设置请求验证完成时回调的接口
         verifyManager.setNetRequestCallback(new VerifyManager.NetRequestCallback() {
             @Override
             public void success() {
@@ -45,7 +53,8 @@ public class LoginActivity extends AppCompatActivity {
                         .show();
             }
         });
-        verifyManager.setEditTextCallback(new VerifyManager.EditTextCallback() {
+        //设置EditText清除用户输入和获取用户输入的接口
+        verifyManager.setEditTextCallback(new VerifyManager.EditTextInputCallback() {
             @Override
             public void clearText() {
                 inputStuNum.setText("");
