@@ -64,8 +64,8 @@ public class GradeRequest {
             }
             Iterator outIterator = courseGradeArrayList.iterator();
             while(outIterator.hasNext()){
-                CourseGrade courseGrade = (CourseGrade) outIterator.next();
-                ArrayList<CourseGrade.Grade> grades = (ArrayList<CourseGrade.Grade>) courseGrade.getItems();
+                CourseGrade courseGradeTemp = (CourseGrade) outIterator.next();
+                ArrayList<CourseGrade.Grade> grades = (ArrayList<CourseGrade.Grade>) courseGradeTemp.getItems();
                 Iterator innerIterator = grades.iterator();
                 while(innerIterator.hasNext()){
                     CourseGrade.Grade grade = (CourseGrade.Grade) innerIterator.next();
