@@ -16,6 +16,8 @@ public class HttpURL {
     public static final String POST_URL = "http://www.zfjw.xupt.edu.cn/jwglxt/xtgl/login_slogin.html";
     //新教务系统请求成绩的URL
     public static final String COURSE_GRADE_URL = "http://www.zfjw.xupt.edu.cn/jwglxt/cjcx/cjcx_cxDgXscj.html?doType=query&gnmkdm=N305005";
+    //新教务系统请求课表的URL
+    public static final String SCHOOL_TIMETABLE_URL = "http://www.zfjw.xupt.edu.cn/jwglxt/kbcx/xskbcx_cxXsKb.html?gnmkdm=N2151";
 
     //将构造器私有化，该类只负责存储相关URL信息
     private HttpURL(){}
