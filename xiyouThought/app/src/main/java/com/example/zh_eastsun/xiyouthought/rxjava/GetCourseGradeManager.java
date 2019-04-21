@@ -83,8 +83,8 @@ public class GetCourseGradeManager {
     public void getCourseGrade() {
         //使用dialog以防用户在此期间多次点击查询操作
         final AlertDialog dialog = new android.support.v7.app.AlertDialog.Builder(context)
-                .setTitle("正在登录")
-                .setMessage("请等待...")
+                .setTitle("正在查询成绩")
+                .setMessage("请耐心等待...")
                 .setView(R.layout.wait_progress_bar)
                 .setCancelable(false)
                 .show();
