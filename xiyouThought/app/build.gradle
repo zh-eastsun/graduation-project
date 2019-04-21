@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.zh_eastsun.xiyouthought"
