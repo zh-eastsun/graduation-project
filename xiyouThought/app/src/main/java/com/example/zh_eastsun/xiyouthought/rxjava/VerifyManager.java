@@ -72,7 +72,7 @@ public class VerifyManager {
                 .setView(R.layout.wait_progress_bar)
                 .setCancelable(false)
                 .show();
-        if(!NetUtil.isNetPingUsable()){
+        if(!NetUtil.isNetPingUsable(context)){
             dialog.dismiss();
             netRequestCallback.failed();
             return ;
