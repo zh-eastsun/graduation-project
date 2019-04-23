@@ -35,7 +35,7 @@
             android:layout_margin="10dp"
             android:hint="@string/input_password_hint"
             android:inputType="textPassword"
-            android:maxLength="15"
+            android:maxLength="16"
             android:maxLines="1"
             android:elevation="10dp"/>
 
