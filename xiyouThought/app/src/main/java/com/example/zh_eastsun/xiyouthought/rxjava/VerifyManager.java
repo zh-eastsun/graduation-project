@@ -25,7 +25,6 @@ public class VerifyManager {
     private static XUPTVerify xuptVerify;
     private NetRequestCallback netRequestCallback;
     private EditTextInputCallback editTextInputCallback;
-    private Boolean netRequestResult;
 
     public interface NetRequestCallback {
         void success();
@@ -53,12 +52,7 @@ public class VerifyManager {
         this.context = context;
         xuptVerify = new XUPTVerify();
         loginInformation = new HashMap<>();
-        netRequestResult = new Boolean(false);
 
-    }
-
-    public Boolean getNetRequestResult() {
-        return netRequestResult;
     }
 
     /**
@@ -98,17 +92,11 @@ public class VerifyManager {
                         if (verifyResult) {
                             //验证成功时取消提示框并启动第二个服务
                             dialog.dismiss();
-                            Toast.makeText(context, "登录成功", Toast.LENGTH_SHORT)
-                                    .show();
-                            Intent intent = new Intent(context, MainActivity.class);
-                            netRequestResult = true;
                             netRequestCallback.success();
-                            context.startActivity(intent);
                         } else {
                             //失败时取消提示框并清空用户输入的数据
                             dialog.dismiss();
-                            Toast.makeText(context, "账号密码错误，请重新登录", Toast.LENGTH_SHORT)
-                                    .show();
+                            netRequestCallback.failed();
                             editTextInputCallback.clearText();
                         }
                     }
