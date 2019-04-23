@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.zh_eastsun.xiyouthought.R;
 import com.example.zh_eastsun.xiyouthought.adapter.GradeRecyclerViewAdapter;
 import com.example.zh_eastsun.xiyouthought.javabean.CourseGrade;
 import com.example.zh_eastsun.xiyouthought.net.GradeRequest;
+import com.example.zh_eastsun.xiyouthought.net.NetRequestCallback;
 import com.example.zh_eastsun.xiyouthought.rxjava.GetCourseGradeManager;
 import com.example.zh_eastsun.xiyouthought.view.ChooseTermView;
 
@@ -63,14 +65,19 @@ public class GradeFragment extends Fragment {
             }
         });
         //设置网络请求已经得到回应的回调，主要用于在网络请求完成后更新RecyclerView的数据
-        getCourseGradeManager.setHaveAcceptResponseCallback(new GetCourseGradeManager.HaveAcceptResponseCallback() {
+        getCourseGradeManager.setNetRequestCallback(new NetRequestCallback() {
             @Override
-            public void doWork() {
+            public void success() {
                 GradeRecyclerViewAdapter adapter = new GradeRecyclerViewAdapter(gradeArrayList);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(linearLayoutManager);
                 recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void failed() {
+                Toast.makeText(getContext(),"数据请求失败,请确认网络环境",Toast.LENGTH_SHORT).show();
             }
         });
         //设置用户查询成绩的回调
