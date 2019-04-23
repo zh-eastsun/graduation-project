@@ -8,13 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.zh_eastsun.xiyouthought.R;
 import com.example.zh_eastsun.xiyouthought.adapter.GradeRecyclerViewAdapter;
 import com.example.zh_eastsun.xiyouthought.javabean.CourseGrade;
-import com.example.zh_eastsun.xiyouthought.net.GradeRequest;
 import com.example.zh_eastsun.xiyouthought.net.NetRequestCallback;
 import com.example.zh_eastsun.xiyouthought.rxjava.GetCourseGradeManager;
 import com.example.zh_eastsun.xiyouthought.view.ChooseTermView;
