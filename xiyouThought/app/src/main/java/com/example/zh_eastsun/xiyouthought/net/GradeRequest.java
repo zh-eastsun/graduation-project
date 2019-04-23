@@ -38,44 +38,41 @@ public class GradeRequest {
 
     /**
      * 获取课程成绩
+     *
      * @param schoolYear 用户选择的学年
      * @param schoolTerm 用户选择的学期
-     * @return  课程成绩Bean类的集合
+     * @return 课程成绩Bean类的集合
      */
-    public ArrayList<CourseGrade.Grade> getCourseGrade(String schoolYear, String schoolTerm) {
+    public ArrayList<CourseGrade.Grade> getCourseGrade(String schoolYear, String schoolTerm) throws IOException {
 
-        try{
-            //此处需要判断页面大小，数据并不一定存储在一页表格中
-            int pageSize = getPageSize(schoolYear, schoolTerm);
-            ArrayList<CourseGrade> courseGradeArrayList = new ArrayList<>();
-            ArrayList<CourseGrade.Grade> gradeArrayList = new ArrayList<>();
-            //循环查询每个页面
-            for (int index = 0; index < pageSize; index++) {
-                Connection connection = Jsoup.connect(HttpURL.COURSE_GRADE_URL);
-                connection.header("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36");
-                connection.cookies(XUPTVerify.getJsessionid());
-                connection.data("xnm",schoolYear);
-                connection.data("xqm",schoolTerm);
-                connection.data("queryModel.currentPage",String.valueOf(index+1));
-                String jsonData = connection.ignoreContentType(true).post().body().text();
-                Gson gson = new Gson();
-                CourseGrade courseGrade = gson.fromJson(jsonData,CourseGrade.class);
-                courseGradeArrayList.add(courseGrade);
-            }
-            Iterator outIterator = courseGradeArrayList.iterator();
-            while(outIterator.hasNext()){
-                CourseGrade courseGradeTemp = (CourseGrade) outIterator.next();
-                ArrayList<CourseGrade.Grade> grades = (ArrayList<CourseGrade.Grade>) courseGradeTemp.getItems();
-                Iterator innerIterator = grades.iterator();
-                while(innerIterator.hasNext()){
-                    CourseGrade.Grade grade = (CourseGrade.Grade) innerIterator.next();
-                    gradeArrayList.add(grade);
-                }
-            }
-            return gradeArrayList;
-        }catch(IOException e){
-            return null;
+        //此处需要判断页面大小，数据并不一定存储在一页表格中
+        int pageSize = getPageSize(schoolYear, schoolTerm);
+        ArrayList<CourseGrade> courseGradeArrayList = new ArrayList<>();
+        ArrayList<CourseGrade.Grade> gradeArrayList = new ArrayList<>();
+        //循环查询每个页面
+        for (int index = 0; index < pageSize; index++) {
+            Connection connection = Jsoup.connect(HttpURL.COURSE_GRADE_URL);
+            connection.header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36");
+            connection.cookies(XUPTVerify.getJsessionid());
+            connection.data("xnm", schoolYear);
+            connection.data("xqm", schoolTerm);
+            connection.data("queryModel.currentPage", String.valueOf(index + 1));
+            String jsonData = connection.ignoreContentType(true).post().body().text();
+            Gson gson = new Gson();
+            CourseGrade courseGrade = gson.fromJson(jsonData, CourseGrade.class);
+            courseGradeArrayList.add(courseGrade);
         }
+        Iterator outIterator = courseGradeArrayList.iterator();
+        while (outIterator.hasNext()) {
+            CourseGrade courseGradeTemp = (CourseGrade) outIterator.next();
+            ArrayList<CourseGrade.Grade> grades = (ArrayList<CourseGrade.Grade>) courseGradeTemp.getItems();
+            Iterator innerIterator = grades.iterator();
+            while (innerIterator.hasNext()) {
+                CourseGrade.Grade grade = (CourseGrade.Grade) innerIterator.next();
+                gradeArrayList.add(grade);
+            }
+        }
+        return gradeArrayList;
     }
 
 }
