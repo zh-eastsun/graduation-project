@@ -1,5 +1,6 @@
 package com.example.zh_eastsun.xiyouthought.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -42,14 +43,16 @@ public class LoginActivity extends AppCompatActivity {
         verifyManager.setNetRequestCallback(new VerifyManager.NetRequestCallback() {
             @Override
             public void success() {
-                if(verifyManager.getNetRequestResult()){
-                    finish();
-                }
+                Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT)
+                        .show();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
 
             @Override
             public void failed() {
-                Toast.makeText(LoginActivity.this,"网络不可用...请检查网络...",Toast.LENGTH_SHORT)
+                Toast.makeText(LoginActivity.this,"登录失败..请检查账号密码和您的网络状态..",Toast.LENGTH_SHORT)
                         .show();
             }
         });
