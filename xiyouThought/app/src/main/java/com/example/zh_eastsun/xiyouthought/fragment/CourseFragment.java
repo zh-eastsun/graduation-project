@@ -16,6 +16,7 @@ import com.example.zh_eastsun.xiyouthought.net.TimetableRequest;
 import com.example.zh_eastsun.xiyouthought.rxjava.GetTimetableManager;
 import com.zhuangfei.timetable.TimetableView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -32,7 +33,7 @@ public class CourseFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public void initView(View view){
+    public void initView(View view) {
         timetableView = view.findViewById(R.id.id_timetableView);
         //使用dialog以防用户在此期间多次点击查询操作
         final AlertDialog dialog = new android.support.v7.app.AlertDialog.Builder(getContext())
@@ -45,7 +46,8 @@ public class CourseFragment extends Fragment {
             @Override
             public void run() {
                 final TimetableRequest timetableRequest = new TimetableRequest();
-                final ArrayList<SchoolTimetable.Timetable> timetables = timetableRequest.getTimeTable();
+                final ArrayList<SchoolTimetable.Timetable> timetables;
+                timetables = timetableRequest.getTimeTable();
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
