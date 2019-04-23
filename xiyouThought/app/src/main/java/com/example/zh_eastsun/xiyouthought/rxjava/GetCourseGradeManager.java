@@ -6,7 +6,9 @@ import android.support.v7.app.AlertDialog;
 import com.example.zh_eastsun.xiyouthought.R;
 import com.example.zh_eastsun.xiyouthought.javabean.CourseGrade;
 import com.example.zh_eastsun.xiyouthought.net.GradeRequest;
+import com.example.zh_eastsun.xiyouthought.net.NetRequestCallback;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -27,7 +29,7 @@ public class GetCourseGradeManager {
     private HashMap<String, String> userSelectedItems;
     private SpinnerItemSelectedCallback spinnerItemSelectedCallback;
     private SetRecyclerViewItemsCallback setRecyclerViewItemsCallback;
-    private HaveAcceptResponseCallback haveAcceptResponseCallback;
+    private NetRequestCallback netRequestCallback;
     private GradeRequest gradeRequest;
 
     /**
@@ -50,15 +52,6 @@ public class GetCourseGradeManager {
         void setRecyclerViewItems(ArrayList<CourseGrade.Grade> courseGrades);
     }
 
-    /**
-     * 网络请求已经获取响应的接口
-     *
-     * @author zh_eastsun
-     * @version 1.0.0
-     */
-    public interface HaveAcceptResponseCallback {
-        void doWork();
-    }
 
     public void setSpinnerItemSelectedCallback(SpinnerItemSelectedCallback callback) {
         this.spinnerItemSelectedCallback = callback;
@@ -68,8 +61,9 @@ public class GetCourseGradeManager {
         this.setRecyclerViewItemsCallback = callback;
     }
 
-    public void setHaveAcceptResponseCallback(HaveAcceptResponseCallback callback) {
-        this.haveAcceptResponseCallback = callback;
+
+    public void setNetRequestCallback(NetRequestCallback netRequestCallback) {
+        this.netRequestCallback = netRequestCallback;
     }
 
     public GetCourseGradeManager(Context context) {
@@ -97,7 +91,12 @@ public class GetCourseGradeManager {
                     public ArrayList<CourseGrade.Grade> apply(HashMap<String, String> stringStringHashMap) {
                         String schoolYear = userSelectedItems.get("schoolYear");
                         String schoolTerm = userSelectedItems.get("schoolTerm");
-                        return gradeRequest.getCourseGrade(schoolYear, schoolTerm);
+                        try {
+                            return gradeRequest.getCourseGrade(schoolYear, schoolTerm);
+                        } catch (IOException e) {
+                            netRequestCallback.failed();
+                            return null;
+                        }
                     }
                 })
                 .subscribeOn(Schedulers.io())
@@ -106,7 +105,7 @@ public class GetCourseGradeManager {
                     @Override
                     public void accept(ArrayList<CourseGrade.Grade> courseGrades) {
                         setRecyclerViewItemsCallback.setRecyclerViewItems(courseGrades);
-                        haveAcceptResponseCallback.doWork();
+                        netRequestCallback.success();
                         dialog.dismiss();
                     }
                 });
