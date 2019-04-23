@@ -7,6 +7,7 @@ import com.example.zh_eastsun.xiyouthought.R;
 import com.example.zh_eastsun.xiyouthought.javabean.SchoolTimetable;
 import com.example.zh_eastsun.xiyouthought.net.TimetableRequest;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
