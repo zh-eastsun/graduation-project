@@ -9,6 +9,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="用户界面" />
+        android:gravity="center"
+        android:text="本应用为前期测试版本，用户界面暂时没有好的想法，如果各位用户有什么好的提案可以联系西安邮电大学计算机学院ThoughtCoding实验室，地点为东区FZ332。如果有对安卓开发感兴趣的同学也可以联系QQ群号：521912724交流，有想加入实验室的同学也可以联系我们。另外感谢所有使用本应用的同学们及对本应用提供帮助的同学们，你们的支持是我们进步的最大动力。\n@西邮ThoughtCoding实验室" />
+
 
 </FrameLayout>
