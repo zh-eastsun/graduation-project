@@ -1,13 +1,10 @@
 package com.example.zh_eastsun.xiyouthought.rxjava;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.widget.Toast;
 
 import com.example.zh_eastsun.xiyouthought.R;
-import com.example.zh_eastsun.xiyouthought.activity.MainActivity;
-import com.example.zh_eastsun.xiyouthought.net.NetUtil;
+import com.example.zh_eastsun.xiyouthought.utils.NetUtil;
 import com.example.zh_eastsun.xiyouthought.net.XUPTVerify;
 
 import java.util.HashMap;
