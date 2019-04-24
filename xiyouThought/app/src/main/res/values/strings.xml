@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">毕设项目</string>
+    <string name="app_name">西邮木函</string>
     <string name="input_account_hint">请输入8位数学号</string>
     <string name="input_password_hint">请输入密码</string>
     <string name="input_check_code_hint">请输入验证码</string>
@@ -13,6 +13,8 @@
     <string name="subject">科目:</string>
     <string name="achievement_point">绩点:</string>
     <string name="subject_type">类型:</string>
+    <string name="remember_password">记住密码</string>
+    <string name="auto_login">自动登录</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
