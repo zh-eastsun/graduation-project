@@ -1,5 +1,6 @@
 package com.example.zh_eastsun.xiyouthought.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,8 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.zh_eastsun.xiyouthought.R;
-import com.example.zh_eastsun.xiyouthought.net.NetUtil;
 import com.example.zh_eastsun.xiyouthought.rxjava.VerifyManager;
+import com.example.zh_eastsun.xiyouthought.utils.RequestPermissionUtil;
 
 import java.util.HashMap;
 
@@ -27,14 +28,30 @@ public class LoginActivity extends AppCompatActivity {
     private EditText inputPassword;
     private Button login;
     private VerifyManager verifyManager;
-
+    private RequestPermissionUtil requestPermissionUtil;
     private HashMap<String,String> userInput;
-
 
     /**
      * 完成控件的初始化
      */
-    private void initView() {
+    private void init() {
+        //检查是否有响应的权限
+        requestPermissionUtil = new RequestPermissionUtil();
+        requestPermissionUtil.setRequestPermissionResult(new RequestPermissionUtil.RequestPermissionCallback() {
+            @Override
+            public void success() {
+
+            }
+
+            @Override
+            public void failed() {
+                Toast.makeText(LoginActivity.this,"请您授予必要的权限..否则无法使用...",Toast.LENGTH_SHORT).show();
+            }
+        });
+        requestPermissionUtil.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},this);
+        if(!requestPermissionUtil.getResquestResult()){
+            return ;
+        }
         inputStuNum = findViewById(R.id.input_stuNum);
         inputPassword = findViewById(R.id.input_password);
         login = findViewById(R.id.login);
@@ -90,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //透明导航栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        initView();
+        init();
 
     }
 
