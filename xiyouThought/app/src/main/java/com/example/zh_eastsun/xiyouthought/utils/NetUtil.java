@@ -1,4 +1,4 @@
-package com.example.zh_eastsun.xiyouthought.net;
+package com.example.zh_eastsun.xiyouthought.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
