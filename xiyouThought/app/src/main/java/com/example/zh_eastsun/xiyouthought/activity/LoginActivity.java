@@ -67,6 +67,17 @@ public class LoginActivity extends AppCompatActivity {
         autoLoginCheckBox = findViewById(R.id.auto_login);
         preferences = getSharedPreferences("user_account",Activity.MODE_PRIVATE);
         editor = preferences.edit();
+        //根据上次的操作初始化checkbox的选择状态
+        if(preferences.getBoolean("isAutoLogin",false)){
+            autoLoginCheckBox.setChecked(true);
+        }else{
+            autoLoginCheckBox.setChecked(false);
+        }
+        if(preferences.getBoolean("isRemember",false)){
+            rememberPasswordCheckBox.setChecked(true);
+        }else{
+            rememberPasswordCheckBox.setChecked(false);
+        }
         verifyManager = new VerifyManager(LoginActivity.this);
         //设置请求验证完成时回调的接口
         verifyManager.setNetRequestCallback(new VerifyManager.NetRequestCallback() {
