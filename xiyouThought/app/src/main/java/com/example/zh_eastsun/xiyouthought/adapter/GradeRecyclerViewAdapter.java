@@ -42,7 +42,9 @@ public class GradeRecyclerViewAdapter extends RecyclerView.Adapter<GradeRecycler
         String subjectGrade = grade.getCj();
         String achievementPoint = grade.getJd();
         String subjectType = grade.getKcxzmc();
-        gradeItemViewHolder.courseGradeView.setSubjectGrade(subject,subjectGrade,achievementPoint,subjectType);
+        String teacherName = grade.getJsxm();
+        String examType = grade.getKsxz();
+        gradeItemViewHolder.courseGradeView.setSubjectGrade(subject,subjectGrade,achievementPoint,subjectType,teacherName,examType);
     }
 
     @Override
