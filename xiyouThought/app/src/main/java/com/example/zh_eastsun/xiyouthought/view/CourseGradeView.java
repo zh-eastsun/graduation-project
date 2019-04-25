@@ -20,12 +20,16 @@ public class CourseGradeView extends LinearLayout {
     private TextView gradeText;
     private TextView achievementPointText;
     private TextView subJectTypeText;
+    private TextView teacherNameText;
+    private TextView examTypeText;
 
     private void init(){
         subjectText = findViewById(R.id.subject_text);
         gradeText = findViewById(R.id.grade_text);
         achievementPointText = findViewById(R.id.achievement_point_text);
         subJectTypeText = findViewById(R.id.subject_type_text);
+        teacherNameText = findViewById(R.id.teacher_name_text);
+        examTypeText = findViewById(R.id.exam_type_text);
     }
 
     public CourseGradeView(Context context) {
@@ -45,10 +49,12 @@ public class CourseGradeView extends LinearLayout {
      * @param achievementPoint 绩点
      * @param subjectType 科目类型(必修/选修/选修(尔雅))
      */
-    public void setSubjectGrade(String subject,String grade,String achievementPoint,String subjectType){
+    public void setSubjectGrade(String subject,String grade,String achievementPoint,String subjectType,String teacherName,String examType){
         subjectText.setText(subject);
         gradeText.setText(grade);
         achievementPointText.setText(achievementPoint);
         subJectTypeText.setText(subjectType);
+        teacherNameText.setText(teacherName);
+        examTypeText.setText(examType);
     }
 }
