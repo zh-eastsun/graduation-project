@@ -25,6 +25,7 @@ public class XUPTVerify {
     private static final String EXPONENT = "exponent";
 
     private static Map<String, Object> tokenAndCookie;
+    private static Map<String, String> studentInfo;
 
     private Base64 base64 = new Base64();
     private RSA rsa = new RSA();
@@ -65,6 +66,7 @@ public class XUPTVerify {
         if (result != null) {
             return false;
         }
+        studentInfo = getStudentInfo(tokenAndCookie,stuID);
         return true;
     }
 
@@ -95,6 +97,10 @@ public class XUPTVerify {
         Element academyElement = element.getElementById("col_jg_id");
         String academy = academyElement.text();
         map.put("academy",academy);
+        //学号
+        Element stuNumElement = element.getElementById("col_xh");
+        String stuNum = stuNumElement.text();
+        map.put("stuNum",stuNum);
         return map;
     }
 
@@ -157,6 +163,10 @@ public class XUPTVerify {
 
     public static Map<String,String> getJsessionid(){
         return (Map<String, String>) tokenAndCookie.get("JSESSIONID");
+    }
+
+    public static Map<String,String> getStudentInfo(){
+        return studentInfo;
     }
 
 }
