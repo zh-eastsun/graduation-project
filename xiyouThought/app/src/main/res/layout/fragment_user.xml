@@ -1,16 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.UserFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="本应用为前期测试版本，用户界面暂时没有好的想法，如果各位用户有什么好的提案可以联系西安邮电大学计算机学院ThoughtCoding实验室，地点为东区FZ332。如果有对安卓开发感兴趣的同学也可以联系QQ群号：521912724交流，有想加入实验室的同学也可以联系我们。另外感谢所有使用本应用的同学们及对本应用提供帮助的同学们，你们的支持是我们进步的最大动力。\n@西邮ThoughtCoding实验室" />
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/round_corner_student_name_view"
+        android:elevation="3dp">
 
+        <TextView
+            android:id="@+id/show_name"
+            android:layout_width="200dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:textColor="@color/app_black"
+            android:layout_centerInParent="true" />
 
-</FrameLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/round_corner_user_info"
+        android:elevation="3dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/student_number"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/student_number"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="@color/app_black"
+            android:textSize="15dp"/>
+
+        <TextView
+            android:id="@+id/show_student_number"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_weight="5"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="@color/app_black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/round_corner_user_info"
+        android:elevation="3dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/class_name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/class_name"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="@color/app_black"
+            android:textSize="15dp"/>
+
+        <TextView
+            android:id="@+id/show_class_name"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_weight="5"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="@color/app_black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/round_corner_user_info"
+        android:elevation="3dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/institution"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/institution"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="@color/app_black"
+            android:textSize="15dp"/>
+
+        <TextView
+            android:id="@+id/show_institution"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_weight="5"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="@color/app_black" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:elevation="3dp"
+        android:text="@string/logout"
+        android:background="@drawable/round_corner_button"
+        android:layout_gravity="center"/>
+
+</LinearLayout>
