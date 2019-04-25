@@ -54,13 +54,11 @@ public class UserFragment extends Fragment {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(preferences.getBoolean("isAutoLogin",true)){
-                    editor.putBoolean("isAutoLogin",false);
-                    editor.apply();
-                    Intent intent = new Intent(getContext(), LoginActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
-                }
+                editor.putBoolean("isAutoLogin",false);
+                editor.apply();
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
     }
