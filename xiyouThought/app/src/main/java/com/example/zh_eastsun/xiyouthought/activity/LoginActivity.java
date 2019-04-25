@@ -1,12 +1,16 @@
 package com.example.zh_eastsun.xiyouthought.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,12 +28,16 @@ import java.util.HashMap;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText inputStuNum;
-    private EditText inputPassword;
-    private Button login;
+    private EditText inputStuNumEditText;
+    private EditText inputPasswordEditText;
+    private Button loginButton;
+    private CheckBox rememberPasswordCheckBox;
+    private CheckBox autoLoginCheckBox;
     private VerifyManager verifyManager;
     private RequestPermissionUtil requestPermissionUtil;
     private HashMap<String,String> userInput;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     /**
      * 完成控件的初始化
@@ -52,9 +60,13 @@ public class LoginActivity extends AppCompatActivity {
         if(!requestPermissionUtil.getResquestResult()){
             return ;
         }
-        inputStuNum = findViewById(R.id.input_stuNum);
-        inputPassword = findViewById(R.id.input_password);
-        login = findViewById(R.id.login);
+        inputStuNumEditText = findViewById(R.id.input_stuNum);
+        inputPasswordEditText = findViewById(R.id.input_password);
+        loginButton = findViewById(R.id.login);
+        rememberPasswordCheckBox = findViewById(R.id.remember_password);
+        autoLoginCheckBox = findViewById(R.id.auto_login);
+        preferences = getSharedPreferences("user_account",Activity.MODE_PRIVATE);
+        editor = preferences.edit();
         verifyManager = new VerifyManager(LoginActivity.this);
         //设置请求验证完成时回调的接口
         verifyManager.setNetRequestCallback(new VerifyManager.NetRequestCallback() {
@@ -77,8 +89,8 @@ public class LoginActivity extends AppCompatActivity {
         verifyManager.setEditTextCallback(new VerifyManager.EditTextInputCallback() {
             @Override
             public void clearText() {
-                inputStuNum.setText("");
-                inputPassword.setText("");
+                inputStuNumEditText.setText("");
+                inputPasswordEditText.setText("");
             }
 
             @Override
@@ -86,17 +98,66 @@ public class LoginActivity extends AppCompatActivity {
                 if(userInput == null){
                     userInput = new HashMap<>();
                 }
-                userInput.put("stuNum",inputStuNum.getText().toString());
-                userInput.put("password",inputPassword.getText().toString());
+                userInput.put("stuNum",inputStuNumEditText.getText().toString());
+                userInput.put("password",inputPasswordEditText.getText().toString());
                 return userInput;
             }
         });
-        login.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 verifyManager.loginVerify();
             }
         });
+        rememberPasswordCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    editor.putString("stuNum",inputStuNumEditText.getText().toString());
+                    editor.putString("password",inputPasswordEditText.getText().toString());
+                    editor.putBoolean("isRemember",true);
+                    editor.apply();
+                }else{
+                    editor.putBoolean("isRemember",false);
+                    editor.apply();
+                }
+            }
+        });
+        autoLoginCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    if(!rememberPasswordCheckBox.isChecked()){
+                        rememberPasswordCheckBox.setChecked(true);
+                    }
+                    editor.putBoolean("isAutoLogin",true);
+                    editor.apply();
+                }else{
+                    editor.putBoolean("isAutoLogin",false);
+                    editor.apply();
+                }
+            }
+        });
+        //检查用户是否记住密码并还原信息
+        readUserMessage();
+        //自动登录
+        autoLogin();
+    }
+
+    /**
+     * 如果用户上一次登录时选择记住密码选项时此次登录应该还原用户上次输入的信息
+     */
+    private void readUserMessage(){
+        if(preferences.getBoolean("isRemember",false)){
+            inputStuNumEditText.setText(preferences.getString("stuNum",""));
+            inputPasswordEditText.setText(preferences.getString("password",""));
+        }
+    }
+
+    private void autoLogin(){
+        if(preferences.getBoolean("isAutoLogin",false)){
+            verifyManager.loginVerify();
+        }
     }
 
     @Override
@@ -107,8 +168,8 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //透明导航栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        //初始化
         init();
-
     }
 
 }
